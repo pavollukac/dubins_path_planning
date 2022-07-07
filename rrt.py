@@ -100,7 +100,7 @@ class RRT:
             
             nearest = self.get_nearest_node(nodes, pick)
 
-            if count % self.check_dubins == 0:
+            if count % self.check_dubins == 0 :
                 solutions = self.dubins.find_tangents(nearest.pos, self.goal.pos)
                 dubins_route, cost, valid = self.dubins.best_tangent(solutions)
                 
@@ -113,17 +113,19 @@ class RRT:
             branch = [pos[:2]]
             
             for i in range(self.max_steps):
-                pos = self.car.step(pos, phi)
+                pos = self.car.step(pos, phi, 1, 0.1 )
                 branch.append(pos[:2])
-            
-            # check safety of route-----------------------
-            if phi == 0:
-                safe = self.dubins.is_straight_route_safe(nearest.pos, pos)
-            else:
-                d, c, r = self.car.get_params(nearest.pos, phi)
-                safe = self.dubins.is_turning_route_safe(nearest.pos, pos, d, c, r)
-            # --------------------------------------------
-            
+            if True:
+                # check safety of route-----------------------
+                if abs(phi) <= np.deg2rad(2) :
+                    safe = self.dubins.is_straight_route_safe(nearest.pos, pos)
+                else:
+                    d, c, r = self.car.get_params(nearest.pos, phi)
+                    safe = self.dubins.is_turning_route_safe(nearest.pos, pos, d, c, r)
+                # --------------------------------------------
+            else:                
+                safe = self.car.is_pos_safe(pos)
+
             if not safe:
                 continue
             
@@ -147,9 +149,9 @@ def main():
 
     tc = TestCase()
 
-    env = Environment(tc.obs)
+    env = Environment(tc.obs,50,40)
 
-    car = SimpleCar(env, tc.start_pos, tc.end_pos)
+    car = SimpleCar(env, tc.start_pos3, tc.end_pos3)
 
     rrt = RRT(car)
 
@@ -254,6 +256,7 @@ def main():
                                   interval=1, repeat=True, blit=True)
 
     plt.show()
+    pass
 
 
 if __name__ == '__main__':

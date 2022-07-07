@@ -17,6 +17,7 @@ class Obstacle:
                     [self.x+self.w+safe_dis, self.y-safe_dis],
                     [self.x+self.w+safe_dis, self.y+self.h+safe_dis],
                     [self.x-safe_dis,        self.y+self.h+safe_dis]]
+        pass
     
     def rectangle_safe(self, rect):
         """ Check a rectangle object is intersected with an obstacle or not. """

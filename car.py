@@ -173,7 +173,7 @@ class SimpleCar:
 
                 pos = self.step(pos, phi, m)
 
-                if same_point(pos[:2], goal[:2]):
+                if same_point(pos[:2], goal[:2]) or pos[2]>10:
                     pos = goal
                     break
         
