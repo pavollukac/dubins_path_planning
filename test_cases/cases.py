@@ -21,14 +21,14 @@ class TestCase:
         #     [5, 6, 5, 0.1]
         # ]
         
-        self.start_pos = [0.3, .3, +pi/2]
-        self.end_pos = [49, 39, -pi/2]
-        self.end_pos2 = [15, 10, 0]
-        self.start_pos3 = [48.5, .3, 0]
-        self.end_pos3 = [49.5, 2, +pi/2]
+        self.start_pos = [0.15, .15, +pi/2]
+        self.end_pos = [49, 39, 0]
+        self.end_pos2 = [15, 11, 0]
+        self.start_pos3 = [48.5, .3, pi/8]
+        self.end_pos3 = [49.5, 5, +pi/2]
 
         self.obs = [
-            [ 1, 1, 48, 8],
-            [ 1, 12, 48, 26],
-            [17,1, 32, 37]            
+            [ 1.5, 1.5, 48, 8],
+            [ 1.5, 12, 48, 26],
+            [17,1.5, 32, 37]            
         ]

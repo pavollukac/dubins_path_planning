@@ -151,7 +151,7 @@ def main():
 
     env = Environment(tc.obs,50,40)
 
-    car = SimpleCar(env, tc.start_pos3, tc.end_pos3)
+    car = SimpleCar(env, tc.start_pos, tc.end_pos)
 
     rrt = RRT(car)
 

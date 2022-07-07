@@ -17,7 +17,7 @@ class Environment:
     
     def rectangle_inbounds(self, rect, safe_dis=0.05):
         """ Check rectangle target within the map bounds. """
-
+        return True
         for v in rect:
             if v[0] < safe_dis:
                 return False
@@ -32,7 +32,7 @@ class Environment:
     
     def ringsector_inbounds(self, rs, safe_dis=0.05):
         """ Check ringsector target within the map bounds. """
-
+        return True
         rect = [[0+safe_dis,        0+safe_dis],
                 [self.lx-safe_dis,  0+safe_dis],
                 [self.lx-safe_dis,  self.ly-safe_dis],

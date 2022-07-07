@@ -78,9 +78,12 @@ class DubinsPath:
 
                 
         cross_point=line_cross_section(start_pos,end_pos)
-
-        pos1_points=distr_points(start_pos,cross_point,self.r)
-        pos2_points=distr_points(end_pos,cross_point,self.r)
+        if cross_point.all:
+            pos1_points=distr_points(start_pos,cross_point,self.r)
+            pos2_points=distr_points(end_pos,cross_point,self.r)
+        else:
+            pos1_points=[start_pos]
+            pos2_points=[end_pos]
 
         i1=-1
         i2=-1
@@ -97,6 +100,8 @@ class DubinsPath:
             self.start_pos = start_pos
             self.end_pos = end_pos
 
+            self.start_org=pos1_points[0]
+            self.end_org=pos2_points[0]
             x1, y1, theta1 = start_pos
             x2, y2, theta2 = end_pos
             
@@ -118,11 +123,13 @@ class DubinsPath:
                 break
 
 
-        start_pos=pos1_points[0]
-        end_pos=pos2_points[0]
+     
 
-        self.start_pos = start_pos
-        self.end_pos = end_pos
+        self.start_pos = pos1_points[0]
+        self.end_pos = pos2_points[0]
+
+        solutions.sort(key=lambda x: x.len, reverse=False)
+
             
         return solutions
     
@@ -148,7 +155,7 @@ class DubinsPath:
         dub.t2 = t2.tolist() + [theta]
         dub.c1 = c1
         dub.c2 = c2
-        dub.len = arc1 + tangent + arc2
+        dub.len = arc1 + tangent + arc2 + points_distance(self.start_pos, self.start_org) + points_distance(self.end_pos,self.end_org)
         dub.p0 = start_pos
         dub.p1 = end_pos
         
@@ -350,7 +357,7 @@ def main():
 
     env = Environment(tc.obs,50,40)
 
-    car = SimpleCar(env, tc.start_pos3, tc.end_pos3)
+    car = SimpleCar(env, tc.start_pos, tc.end_pos)
 
     dubins = DubinsPath(car)
 

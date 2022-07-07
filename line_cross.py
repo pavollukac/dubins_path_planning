@@ -24,11 +24,13 @@ def line_cross_section(pos1, pos2):
     line_1 = Line.from_points(p1[0],p1[1])
     line_2 = Line.from_points(p2[0],p2[1])
 
+    if pos1[2]!=pos2[2]:
+        # Compute the intersection point
+        intersection_point = line_1.intersect_line(line_2)
 
-    # Compute the intersection point
-    intersection_point = line_1.intersect_line(line_2)
-
-    return intersection_point
+        return intersection_point
+    pass
+    return None 
 
 def points_distance (p0,p1):
     x0,y0,phi0=p0
@@ -40,7 +42,7 @@ def distr_points(start_pos, cros_point, radius):
     # split line between two points, by normal distribution
     #   * *  *   *    *     *    *   *  * *
 
-    delta=radius/4
+    delta=radius
 
     x0,y0,phi=start_pos
     x1,y1=cros_point
